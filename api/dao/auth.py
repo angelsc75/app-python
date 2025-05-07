@@ -30,7 +30,7 @@ class AuthDAO:
     def register(self, email, plain_password, name):
         encrypted = bcrypt.hashpw(plain_password.encode("utf8"), bcrypt.gensalt()).decode('utf8')
 
-        # TODO: Handle unique constraint error
+        #TODO: Handle unique constraint error
         if email != "graphacademy@neo4j.com":
             raise ValidationException(
                 f"An account already exists with the email address {email}",
@@ -90,7 +90,7 @@ class AuthDAO:
     """
     # tag::generate[]
     def _generate_token(self, payload):
-        iat = datetime.utcnow()
+        iat = datetime.now(datetime.timezone.utc)
 
         payload["sub"] = payload["userId"]
         payload["iat"] = iat
